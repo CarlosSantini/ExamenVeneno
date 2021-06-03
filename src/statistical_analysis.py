@@ -4,15 +4,26 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-def plot_boxplot(instancias):
-    plt.figure(figsize=(22, 8))
-    ax = sns.boxenplot(data=instancias, palette="Set2", showfliers=False)
-    ax = sns.stripplot(data=instancias, size=4, color=".26")
-    ax.set_title(label='Distribucion de las instancias del veneno entre cada caracteristica ', fontsize=20)
-    ax.set_xlabel(xlabel='Caracteristica del Veneno', fontsize=16)
-    ax.set_ylabel(ylabel='Cantidad de sustancia\n de veneno', fontsize=16)
-    plt.grid()
-    plt.show()
+def plot_boxplot(vals, veneno):
+    sns.set(style="darkgrid")
+
+    for _, val in enumerate(vals.columns):
+        fig, (ax_hist, ax_box) = plt.subplots(1, 2)
+        sns.histplot(data=vals[val], ax=ax_hist)
+        sns.boxplot(data=vals[val], ax=ax_box, color='green')
+
+        ax_hist.set_xlabel(xlabel='Cantidad de veneno', fontsize=15)
+        ax_hist.set_ylabel(ylabel='Instancias', fontsize=15)
+
+        ax_box.set_xlabel(xlabel=val, fontsize=15)
+        ax_box.set_ylabel(ylabel='Cantidad de veneno', fontsize=15)
+
+        fig.set_size_inches(12, 6)
+        fig.subplots_adjust(wspace=.25, left=0.035, right=.985, top=.925, bottom=.1)
+        fig.suptitle(val + " con cantidad minima de sustancia venenosa: " + str(veneno[val][0]), fontsize=20)
+        plt.savefig("../plots/HistnBox " + val + ".png")
+        plt.show()
+
 
 
 def agregar_texto_bar(totales):
@@ -32,7 +43,9 @@ def plot_total_instances(totales):
     plt.ylabel(ylabel='Instancias', fontsize=16)
 
     agregar_texto_bar(totales)
+    plt.savefig("../plots/Total de Instancias.png")
     plt.show()
+
 
 
 def compute_descriptive_stats(instancias):
@@ -96,7 +109,9 @@ def exploration_data(veneno, sustancias_diversas):
     description = compute_descriptive_stats(instancias)
 
     # - Boxplot de Distribución de las instancias del veneno entre cada caracteristica
-    plot_boxplot(instancias)
+    plot_boxplot(instancias, veneno)
+
+    # - Buscar correlacion entre
 
 
 
