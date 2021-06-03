@@ -1,10 +1,7 @@
 import pandas as pd
 from src import config
 
-def feature_process():
-    # - Leer archivos csv
-    veneno = pd.read_csv(config.VENENO_DATA)
-    sustancias_diversas = pd.read_csv(config.SUSTANCIAS_DATA)
+def feature_process(veneno, sustancias_diversas):
 
     '''Limpieza de datos'''
     # - Explorar archivos csv
@@ -35,3 +32,6 @@ def feature_process():
     # - Buscar ID de rios repetidos
     id_duplicados = sustancias_diversas[sustancias_diversas.duplicated('id')]
     print(id_duplicados)
+
+    return veneno, sustancias_diversas
+
