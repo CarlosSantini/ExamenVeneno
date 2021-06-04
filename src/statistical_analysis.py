@@ -77,7 +77,10 @@ def compute_descriptive_stats(instancias):
     return description
 
 
-# def find_correlation
+def find_correlation(instancias, metodo):
+    correlations = round(instancias.corr(method=metodo), 5)
+    print(correlations)
+    return correlations
 
 
 def tabla_cumplimineto_requisito(ids):
@@ -120,13 +123,14 @@ def exploration_data(veneno, sustancias_diversas):
     # - Calcular analisis estadistico descriptivo
     description = compute_descriptive_stats(instancias)
 
-    # - Distribución de las instancias del veneno entre cada caracteristica
+    # - Boxplot general de la distribución de las instancias del veneno entre cada caracteristica
     plot_all_boxplots(instancias)
 
     # - Boxplot de Distribución de las instancias del veneno entre cada caracteristica
     plot_boxplot(instancias, veneno)
 
     # - Buscar correlacion entre
+    correl = find_correlation(instancias, 'pearson')
 
 
 
