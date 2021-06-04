@@ -25,6 +25,17 @@ def plot_boxplot(vals, veneno):
         plt.show()
 
 
+def plot_all_boxplots(vals):
+    plt.figure(figsize=(22, 8))
+    ax = sns.boxenplot(data=vals, palette="Set2", showfliers=False)
+    ax = sns.stripplot(data=vals, size=4, color=".26")
+    ax.set_title(label='Distribucion de las instancias del veneno entre cada caracteristica ', fontsize=20)
+    ax.set_xlabel(xlabel='Caracteristica del Veneno', fontsize=16)
+    ax.set_ylabel(ylabel='Cantidad de sustancia\n de veneno', fontsize=16)
+    plt.grid()
+    plt.savefig("../plots/All Boxplots.png")
+    plt.show()
+
 
 def agregar_texto_bar(totales):
     i = 0
@@ -47,7 +58,6 @@ def plot_total_instances(totales):
     plt.show()
 
 
-
 def compute_descriptive_stats(instancias):
     # - Calcular media, mediana, moda, maximo, minimo de cada caracteristica de veneno a partir del total de
     # instancias que cumplen el valor minimo de veneno
@@ -64,8 +74,10 @@ def compute_descriptive_stats(instancias):
     print(description)
 
     # instancias.describe()
-
     return description
+
+
+# def find_correlation
 
 
 def tabla_cumplimineto_requisito(ids):
@@ -107,6 +119,9 @@ def exploration_data(veneno, sustancias_diversas):
 
     # - Calcular analisis estadistico descriptivo
     description = compute_descriptive_stats(instancias)
+
+    # - Distribución de las instancias del veneno entre cada caracteristica
+    plot_all_boxplots(instancias)
 
     # - Boxplot de Distribución de las instancias del veneno entre cada caracteristica
     plot_boxplot(instancias, veneno)

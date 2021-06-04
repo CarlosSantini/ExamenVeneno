@@ -11,5 +11,4 @@ if __name__=="__main__":
 
     veneno,sustancias_diversas = feature_process(veneno, sustancias_diversas)
 
-
     exploration_data(veneno,sustancias_diversas)
