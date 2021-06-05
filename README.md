@@ -5,7 +5,8 @@ Primer desafío de examen para TrueHome
 El script ejecutable "main.py" se encuentra en la carpeta: "ExamenVeneno/src/main.py"
 
 # Ver archivo "urgente_orden_de_cierre.csv"
-Este archivo contiene las 50 muestras que se deben de cerrar, empezando por las mas importantes. El orden se encuentra de manera descendente.
+Este archivo contiene las 50 muestras que se deben de cerrar, empezando por las mas importantes. El orden se encuentra de manera descendente.  
+- El archivo se localiza en la siguietne ruta "ExamenVeneno/data/".
 
 # Ubicacion de gráficas
 En la carpeta "ExamenVeneno/plots/" se guardan las graficas de  dispersion y grafica de barra para cada caracteristica de veneno.  
