@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+from conditions import first_condition, second_condition, third_condition, fourth_condition, fifth_condition, sixth_condition
 
 
 def plot_boxplot(vals, veneno):
@@ -71,7 +72,7 @@ def compute_descriptive_stats(instancias):
     description = pd.DataFrame(np.array([total, media, mediana, desv, modaa, maax, miin]),
                                index=["Total", "Media", "Mediana", "Std", "Moda", "Maximo", "Minimo"],
                                columns=[instancias.keys()])
-    print(description)
+    # print(description)
 
     # instancias.describe()
     return description
@@ -79,7 +80,7 @@ def compute_descriptive_stats(instancias):
 
 def find_correlation(instancias, metodo):
     correlations = round(instancias.corr(method=metodo), 5)
-    print(correlations)
+    # print(correlations)
     return correlations
 
 
@@ -104,14 +105,14 @@ def exploration_data(veneno, sustancias_diversas):
         ids.append(a)
         totales[val] = a[val].count()
 
-    print(ids)
-    print()
-    print(totales)
+    # print(ids)
+    # print()
+    # print(totales)
 
     # - Obtener y Ordenar el total de instancias para cada caracteristica del veneno
     tuplas_ordered = reversed(sorted(totales.items(), key=lambda x:x[1]))
     totales_ordered = {key : val for key, val in tuplas_ordered}
-    print(totales_ordered)
+    # print(totales_ordered)
 
     # - Crear una tabla con las instancias que si cumplen el requesito para cada caracteristica del veneno, las que
     # no lo cumplen, rellenar con valor nulo.
@@ -131,6 +132,31 @@ def exploration_data(veneno, sustancias_diversas):
 
     # - Buscar correlacion entre
     correl = find_correlation(instancias, 'pearson')
+
+    # - Guardar muestras que cumplan las condicisiones
+    rios_cincuenta = pd.DataFrame(columns=instancias.columns)
+
+    all_samples, final_samples = first_condition(sustancias_diversas, veneno)
+    nine_max_chars, final_samples = second_condition(final_samples, veneno)
+    six_charac_eq_m, final_samples = third_condition(final_samples)
+    six_charac_eq_m1, final_samples = fourth_condition(final_samples)
+    six_charac_gt_m, final_samples = fifth_condition(final_samples)
+    six_charac_gt_m1 = sixth_condition(final_samples)
+
+    rios_cincuenta = pd.concat([all_samples,
+                                nine_max_chars,
+                                six_charac_eq_m,
+                                six_charac_eq_m1,
+                                six_charac_gt_m,
+                                six_charac_gt_m1
+                                ], ignore_index=True)
+
+    # - Eliminar del dataframe las muestras que sobrepasen el tamaño de la tabla igual a 50
+    rios_cincuenta = rios_cincuenta.drop(rios_cincuenta.index[-(len(rios_cincuenta)-50):])
+
+    # print(rios_cincuenta)
+
+    rios_cincuenta.to_csv('../data/urgente_orden_de_cierre.csv', index=False)
 
 
 
