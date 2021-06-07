@@ -2,11 +2,13 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from conditions import first_condition, second_condition, third_condition, fourth_condition, fifth_condition, sixth_condition
+from src.conditions import first_condition, second_condition, third_condition, fourth_condition, fifth_condition, sixth_condition
+import os
 
 
 def plot_boxplot(vals, veneno):
     sns.set(style="darkgrid")
+    ruta = os.path.join(os.path.abspath(os.getcwd()), 'plots')
 
     for _, val in enumerate(vals.columns):
         fig, (ax_hist, ax_box) = plt.subplots(1, 2)
@@ -22,8 +24,8 @@ def plot_boxplot(vals, veneno):
         fig.set_size_inches(12, 6)
         fig.subplots_adjust(wspace=.25, left=0.035, right=.985, top=.925, bottom=.1)
         fig.suptitle(val + " con cantidad minima de sustancia venenosa: " + str(veneno[val][0]), fontsize=20)
-        plt.savefig("../plots/HistnBox " + val + ".png")
-        plt.show()
+        plt.savefig(ruta+"\HistnBox " + val + ".png")
+        # plt.show()
 
 
 def plot_all_boxplots(vals):
@@ -34,8 +36,9 @@ def plot_all_boxplots(vals):
     ax.set_xlabel(xlabel='Caracteristica del Veneno', fontsize=16)
     ax.set_ylabel(ylabel='Cantidad de sustancia\n de veneno', fontsize=16)
     plt.grid()
-    plt.savefig("../plots/All Boxplots.png")
-    plt.show()
+    ruta = os.path.join(os.path.abspath(os.getcwd()), 'plots')
+    plt.savefig(ruta+"\All Boxplots.png")
+    # plt.show()
 
 
 def agregar_texto_bar(totales):
@@ -55,8 +58,9 @@ def plot_total_instances(totales):
     plt.ylabel(ylabel='Instancias', fontsize=16)
 
     agregar_texto_bar(totales)
-    plt.savefig("../plots/Total de Instancias.png")
-    plt.show()
+    ruta = os.path.join(os.path.abspath(os.getcwd()), 'plots')
+    plt.savefig(ruta+"\Total de Instancias.png")
+    # plt.show()
 
 
 def compute_descriptive_stats(instancias):
@@ -156,7 +160,8 @@ def exploration_data(veneno, sustancias_diversas):
 
     # print(rios_cincuenta)
 
-    rios_cincuenta.to_csv('../data/urgente_orden_de_cierre.csv', index=False)
+    ruta = os.path.join(os.path.abspath(os.getcwd()),'data')
+    rios_cincuenta.to_csv(ruta+"\\urgente_orden_de_cierre.csv", index=False)
 
 
 

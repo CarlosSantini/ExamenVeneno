@@ -1,7 +1,8 @@
+import os
 import pandas as pd
 from src import config
-from feature_processing import feature_process
-from statistical_analysis import exploration_data
+from src.feature_processing import feature_process
+from src.statistical_analysis import exploration_data
 
 
 if __name__=="__main__":
